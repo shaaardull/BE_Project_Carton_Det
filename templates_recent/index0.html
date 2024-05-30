@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Carton Detection</title>
+    <style>
+        body {
+            background-image: url("/outputs/warehouse_login.jpg"); /* Replace "background.jpg" with your image file */
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 50px; /* Adjust as needed */
+            color: #333; /* Main text color */
+        }
+        .header {
+            text-align: center;
+            color: #fff; /* Header text color */
+            margin-bottom: 20px;
+        }
+        .box {
+            background-color: #f9f9f9; /* Box background color */
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            max-width: 600px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+        }
+        .box-title {
+            font-weight: bold;
+            color: #007bff; /* Box title color */
+            margin-bottom: 10px;
+        }
+        a {
+            color: #007bff; /* Link color */
+            text-decoration: none; /* Remove underline */
+        }
+        a:hover {
+            text-decoration: underline; /* Add underline on hover */
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h1>Carton Detection</h1>
+</div>
+    <h1>Welcome to the Application</h1>
+    <p>Please <a href="{{ url_for('login') }}">login</a> or <a href="{{ url_for('create_account') }}">create an account</a>.</p>
+
+<div class="box">
+    <h2 class="box-title">Necessity of Carton Detection</h2>
+    <p>Carton detection is essential in warehouse management and logistics. It helps in identifying and tracking cartons containing goods, optimizing inventory management, and ensuring efficient distribution processes. With accurate carton detection, businesses can minimize errors, reduce operational costs, and enhance overall productivity.</p>
+</div>
+
+<div class="box">
+    <h2 class="box-title">Advantages of Carton Detection</h2>
+    <p>Using carton detection technology, warehouses can automate tasks such as inventory counting, picking, and sorting. It enables real-time monitoring of stock levels, enhances order fulfillment accuracy, and facilitates seamless integration with inventory management systems.</p>
+</div>
+</body>
+</html>

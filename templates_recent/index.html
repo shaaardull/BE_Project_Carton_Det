@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload File</title>
+    <style>
+        body {
+            background-image: url("/outputs/warehouse_login.jpg"); /* Replace "background.jpg" with your image file */
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        h1 {
+            color:white;
+        }
+        form {
+            background-color: rgba(255, 255, 255, 0.8); /* Adjust the transparency as needed */
+            padding: 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+<h1>Upload File</h1>
+<form id="upload-form" enctype="multipart/form-data">
+    <input type="file" name="file" id="file-input">
+    <button type="submit">Upload</button>
+</form>
+
+<div id="result"></div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#upload-form').submit(function(event) {
+            event.preventDefault();
+            var formData = new FormData(this);
+            $.ajax({
+                url: '/upload',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    $('#result').empty();
+                    $('#result').append('<p>File uploaded successfully: ' + response.file_name + '</p>');
+                    $('#result').append('<p>Total masks detected: ' + response.total_masks + '</p>');
+                    $('#result').append('<img src="' + response.file_url + '" alt="Result Image" style="max-width: 400px;">');
+                },
+                error: function(error) {
+                    $('#result').text('Error: ' + error.responseJSON.error);
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

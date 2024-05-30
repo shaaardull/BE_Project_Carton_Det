@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Carton Detection</title>
+    <style>
+        body {
+            background-image: url("/outputs/warehouse_login.jpg");
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 50px 20px;
+            /* Added padding to create space at the edges */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+            /* Hide horizontal scrollbar */
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 32px;
+        }
+
+        .box-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1200px;
+            /* Set maximum width for better layout on larger screens */
+        }
+
+        .box {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            width: calc(50% - 20px);
+            /* Shortened box width with space between them */
+            margin-bottom: 40px;
+            /* Increased space between boxes */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+            box-sizing: border-box;
+            /* Include padding in box width calculation */
+        }
+
+        .box:hover {
+            transform: translateY(-5px);
+        }
+
+        .box-title {
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.5;
+            color: #222831;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            margin-right: 10px;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Carton Detection</h1>
+    </div>
+    <h2>Revolutionize Your Warehouse</h2>
+    <p>
+        <a href="{{ url_for('login') }}" class="btn">Login</a>
+        <a href="{{ url_for('create_account') }}" class="btn">Create Account</a>
+    </p>
+
+    <div class="box-container">
+        <div class="box" id="necessity-box">
+            <h2 class="box-title">Necessity of Carton Detection  </h2>
+            <p>Carton detection is essential in warehouse management and logistics. It helps in identifying and tracking
+                cartons containing goods, optimizing inventory management, and ensuring efficient distribution
+                processes. </p>
+        </div>
+
+        <div class="box" id="advantages-box">
+            <h2 class="box-title">Advantages of Carton Detection</h2>
+            <p>Using carton detection technology, warehouses can automate tasks such as inventory counting, picking, and
+                sorting. It enables real-time monitoring of stock level</p>
+        </div>
+    </div>
+
+    <script>
+        // Add functionality to toggle visibility of each box
+        const necessityBox = document.getElementById('necessity-box');
+        const advantagesBox = document.getElementById('advantages-box');
+
+        necessityBox.addEventListener('click', () => {
+            toggleVisibility(necessityBox);
+        });
+
+        advantagesBox.addEventListener('click', () => {
+            toggleVisibility(advantagesBox);
+        });
+
+        function toggleVisibility(element) {
+            element.classList.toggle('hidden');
+        }
+    </script>
+
+</body>
+
+</html>

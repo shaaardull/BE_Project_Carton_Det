@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile & Upload File</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .logout-link {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .logout-link:hover {
+            text-decoration: underline;
+        }
+
+        form {
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input[type="file"] {
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        #result p {
+            margin-bottom: 10px;
+        }
+
+        #result img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        #historical-images {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            justify-items: center;
+            margin-top: 20px;
+        }
+
+        #historical-images div {
+            text-align: center;
+        }
+
+        #historical-images img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome, {{ username }}!</h1>
+        <p><a href="{{ url_for('logout') }}" class="logout-link">Logout</a></p>
+    </div>
+
+    <div class="container">
+        <h1>Upload File</h1>
+        <form id="upload-form" enctype="multipart/form-data">
+            <input type="file" name="file" id="file-input">
+            <button type="submit">Upload</button>
+        </form>
+
+        <div id="result"></div>
+    </div>
+
+    <div class="container">
+        <h1>Historical Images</h1>
+        <div id="historical-images"></div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Function to load historical images
+            function loadHistoricalImages() {
+                $.ajax({
+                    url: '/historical_images',
+                    type: 'GET',
+                    success: function(response) {
+                        $('#historical-images').empty();
+                        response.forEach(function(item) {
+                            $('#historical-images').append('<div><p>Image Name: ' + item[0] + '</p><p>Masks Present: ' + item[2] + '</p><img src="' + item[1] + '" alt="Historical Image"></div>');
+                        });
+                    },
+                    error: function(error) {
+                        console.log('Error fetching historical images: ' + error);
+                    }
+                });
+            }
+
+            // Load historical images on page load
+            loadHistoricalImages();
+            // Function to handle file upload form submission
+            $('#upload-form').submit(function(event) {
+                event.preventDefault();
+                var formData = new FormData(this);
+                $.ajax({
+                    url: '/upload',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        $('#result').empty();
+                        $('#result').append('<p>File uploaded successfully: ' + response.file_name + '</p>');
+                        $('#result').append('<p>Total masks detected: ' + response.total_masks + '</p>');
+                        $('#result').append('<img src="' + response.file_url + '" alt="Result Image">');
+                        // After successful upload, reload historical images
+                        loadHistoricalImages();
+                    },
+                    error: function(error) {
+                        $('#result').text('Error: ' + error.responseJSON.error);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

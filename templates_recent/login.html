@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5; /* Background color */
+            background-image: url("/outputs/warehouse_login.jpg"); /* Specify the path to your background image */
+            background-size: cover;
+            /* background-position: center; */
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #f2f2f2; /* Heading color */
+        }
+
+        p {
+            text-align: center;
+            color: #c00; /* Message color */
+            margin-bottom: 20px;
+        }
+
+        form {
+            max-width: 300px;
+            margin: 0 auto;
+            background-color: #fff; /* Form background color */
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff; /* Button background color */
+            border: none;
+            border-radius: 3px;
+            color: #fff; /* Button text color */
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Button background color on hover */
+        }
+
+        .back-btn {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .btn-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn-container a {
+            display: inline-block;
+            margin-right: 10px;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .btn-container a:hover {
+            text-decoration: underline;
+        }
+
+
+    </style>
+</head>
+<body>
+    <h1>Login</h1>
+    <p>{{ message }}</p>
+    <form action="{{ url_for('login') }}" method="post">
+        <input type="text" name="username" placeholder="Username" required><br>
+        <input type="password" name="password" placeholder="Password" required><br>
+        <button type="submit">Login</button>
+    </form>
+    <div class="btn-container">
+      <a href="{{ url_for('create_account') }}">Create Account</a>
+      <a href="{{ url_for('index') }}">Back Home</a>
+  </div>
+</body>
+</html>
